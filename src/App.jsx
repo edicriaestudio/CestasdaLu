@@ -45,9 +45,13 @@ export default function App() {
 
   // Abrir modal de detalhes
   const handleSelectProduct = (product) => {
-    // Se o item vier do carrossel ou da hero simplificada, busca o equivalente completo no catálogo ou usa o próprio
-    const match = PRODUCTS_CATALOG.find(p => p.id === product.id || p.category === product.category);
-    setSelectedProduct(match || product);
+    // Se o item tiver um ID cadastrado no catálogo completo, pega seus dados ricos preservando a imagem exata
+    const match = PRODUCTS_CATALOG.find(p => p.id === product.id);
+    if (match) {
+      setSelectedProduct(match);
+    } else {
+      setSelectedProduct(product);
+    }
   };
 
   // Avançar diretamente para o Checkout

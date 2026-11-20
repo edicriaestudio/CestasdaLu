@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabela Corporativa 2024 - Cestas da Lu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0f1411;
+      color: #f3f4f6;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 14mm 15mm 12mm 15mm;
+      position: relative;
+    }
+
+    .glow-top {
+      position: absolute;
+      top: -100px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(212, 163, 115, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .glow-bottom {
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(58, 90, 64, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .brand-col h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .brand-col h1 span {
+      color: #d4a373;
+      font-style: italic;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      background: rgba(212, 163, 115, 0.15);
+      color: #e9c49a;
+      border: 1px solid rgba(212, 163, 115, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+    .contact-col {
+      text-align: right;
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.4;
+    }
+    .contact-col strong {
+      color: #ffffff;
+      font-size: 12px;
+    }
+
+    .title-block {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title-block h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .title-block p {
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+    .highlight-pill {
+      background: #2a3b2e;
+      border: 1px solid #4a6b52;
+      color: #a3e635;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th {
+      background: #18221c;
+      color: #e5e7eb;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 8px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    th:first-child, td:first-child {
+      text-align: left;
+      padding-left: 12px;
+    }
+    td {
+      padding: 10px 8px;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(18, 26, 21, 0.6);
+      vertical-align: middle;
+      text-align: center;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .prod-name {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 11.5px;
+      display: block;
+    }
+    .prod-desc {
+      font-size: 9.5px;
+      color: #9ca3af;
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+    .price-regular {
+      color: #9ca3af;
+      font-size: 11px;
+    }
+    .price-tier {
+      font-weight: 700;
+      color: #d4a373;
+      font-size: 12px;
+    }
+    .price-tier.best {
+      color: #a3e635;
+      font-weight: 800;
+    }
+    .featured-row td {
+      background: rgba(212, 163, 115, 0.07);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .benefit-icon {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .benefit-card h4 {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .benefit-card p {
+      font-size: 8.5px;
+      color: #9ca3af;
+      line-height: 1.25;
+    }
+
+    .info-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .info-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .info-box h3 {
+      font-size: 11px;
+      font-weight: 700;
+      color: #d4a373;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .info-box ul {
+      list-style: none;
+    }
+    .info-box li {
+      font-size: 9.5px;
+      color: #d1d5db;
+      margin-bottom: 4px;
+      line-height: 1.35;
+      position: relative;
+      padding-left: 12px;
+    }
+    .info-box li::before {
+      content: "•";
+      color: #d4a373;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .cta-footer {
+      background: linear-gradient(90deg, #1d2a20 0%, #2b3e30 100%);
+      border: 1px solid #3d5a44;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cta-text h4 {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .cta-text p {
+      color: #d1d5db;
+      font-size: 9px;
+    }
+    .cta-btn {
+      background: #d4a373;
+      color: #0f1411;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-top"></div>
+  <div class="glow-bottom"></div>
+
+  <div class="header">
+    <div class="brand-col">
+      <h1>Cestas <span>da Lu</span></h1>
+      <span class="badge">Atendimento B2B &bull; Tabela Corporativa 2024</span>
+    </div>
+    <div class="contact-col">
+      <strong>Luh Presentes &bull; São João de Meriti - RJ</strong><br>
+      WhatsApp Corporativo: (21) 95910-4445<br>
+      Instagram: @cestadaluu &bull; Atendimento em todo Grande Rio
+    </div>
+  </div>
+
+  <div class="title-block">
+    <div>
+      <h2>Condições Especiais para Encomendas em Volume (Fim de Ano & Celebrações)</h2>
+      <p>Presentes refinados para encantar seus clientes VIPs, parceiros comerciais e reconhecer sua equipe de colaboradores.</p>
+    </div>
+    <div class="highlight-pill">
+      A partir de 5 unidades com desconto progressivo
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 44%;">Linha & Especificação dos Produtos</th>
+        <th style="width: 14%;">Unitário Avulso</th>
+        <th style="width: 14%;">5 a 14 un.<br><span style="font-weight:normal; opacity:0.8;">(-5%)</span></th>
+        <th style="width: 14%;">15 a 29 un.<br><span style="font-weight:normal; opacity:0.8;">(-10%)</span></th>
+        <th style="width: 14%;">30+ un.<br><span style="font-weight:normal; opacity:0.8; color:#a3e635;">(-15%)</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="prod-name">1. Caneca Noel & Mimo Natalino</span>
+          <span class="prod-desc">Caneca de porcelana temática, mini Panetone Bauducco ou trufas finas, bombons e laço natalino acetinado. Ideal para lembrança em massa da equipe.</span>
+        </td>
+        <td><span class="price-regular">R$ 69,00</span></td>
+        <td><span class="price-tier">R$ 65,00</span></td>
+        <td><span class="price-tier">R$ 62,00</span></td>
+        <td><span class="price-tier best">R$ 58,00</span></td>
+      </tr>
+
+      <tr class="featured-row">
+        <td>
+          <span class="prod-name">2. Cesta Corporativa Natal Tradicional ⭐ [Mais Pedida]</span>
+          <span class="prod-desc">Cesta artesanal com Panetone especial, espumante ou suco uva integral nobre, biscoitos artesanais finos, chocolates e castanhas selecionadas.</span>
+        </td>
+        <td><span class="price-regular">R$ 110,00</span></td>
+        <td><span class="price-tier">R$ 104,50</span></td>
+        <td><span class="price-tier">R$ 99,00</span></td>
+        <td><span class="price-tier best">R$ 93,50</span></td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="prod-name">3. Linha Executiva &bull; Tradição & Noite de Natal</span>
+          <span class="prod-desc">Vinho fino selecionado ou espumante demi-sec, panetone nobre, queijo gourmet provolone, geleia artesanal, mix de castanhas e doces finos.</span>
+        </td>
+        <td><span class="price-regular">R$ 195,00</span></td>
+        <td><span class="price-tier">R$ 185,00</span></td>
+        <td><span class="price-tier">R$ 175,50</span></td>
+        <td><span class="price-tier best">R$ 165,00</span></td>
+      </tr>
+
+      <tr class="featured-row">
+        <td>
+          <span class="prod-name">4. Bag Chandon Exclusiva &bull; Luxo Diretoria / Clientes VIP</span>
+          <span class="prod-desc">Bolsa acrílico transparente ultra-luxo, Espumante Chandon Brut 750ml, duas taças de espumante, chocolates Ferrero Rocher e fita acetinada refinada.</span>
+        </td>
+        <td><span class="price-regular">R$ 185,00</span></td>
+        <td><span class="price-tier">R$ 175,00</span></td>
+        <td><span class="price-tier">R$ 166,00</span></td>
+        <td><span class="price-tier best">R$ 157,00</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">🏷️</div>
+      <h4>Sua Marca em Destaque</h4>
+      <p>Cartão com logotipo da sua empresa e mensagem personalizada cortesia a partir de 10 unidades.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🧾</div>
+      <h4>Emissão de Nota Fiscal</h4>
+      <p>Faturamento direto para CNPJ com discriminação completa dos itens para sua contabilidade.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🚚</div>
+      <h4>Logística Flexível</h4>
+      <p>Entrega única na sua empresa ou envio individual para o endereço de clientes e colaboradores no Grande Rio.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">✨</div>
+      <h4>Montagem Sob Medida</h4>
+      <p>Adaptamos itens específicos para respeitar rigorosamente o orçamento definido pela sua diretoria.</p>
+    </div>
+  </div>
+
+  <div class="info-container">
+    <div class="info-box">
+      <h3>Como Funciona a Contratação Corporativa</h3>
+      <ul>
+        <li><strong>Agendamento Antecipado:</strong> Garantia de estoque de bebidas premium e itens natalinos mediante reserva prévia.</li>
+        <li><strong>Aprovação da Amostra:</strong> Para pedidos acima de 20 unidades, enviamos fotos/vídeos detalhados da cesta modelo montada.</li>
+        <li><strong>Personalização das Cores:</strong> Laços e acabamentos combinando com a identidade visual da sua marca.</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3>Condições de Pagamento</h3>
+      <ul>
+        <li><strong>Pix Corporativo:</strong> Desconto de 3% à vista.</li>
+        <li><strong>Boleto Bancário / Faturamento:</strong> Para CNPJ cadastrado (50% sinal + 50% na entrega).</li>
+        <li><strong>Cartão Corporativo:</strong> Parcelamento em até 3x sem juros.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cta-footer">
+    <div class="cta-text">
+      <h4>Pronto para surpreender sua equipe e clientes VIPs?</h4>
+      <p>Fale diretamente com nossa consultora Lu e receba sua cotação personalizada em minutos.</p>
+    </div>
+    <div class="cta-btn">
+      Solicitar Cotação &bull; (21) 95910-4445
+    </div>
+  </div>
+</body>
+</html>
